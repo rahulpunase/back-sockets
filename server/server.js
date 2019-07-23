@@ -9,6 +9,8 @@ import authRouter from '../server/routes/authentication.routes';
 
 const app = express();
 const socket = require('socket.io');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
 app.use(cors({
     origin: ["http://localhost:4200"]

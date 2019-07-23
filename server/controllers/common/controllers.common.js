@@ -8,7 +8,7 @@ import { logger } from '../../middlewares/logger.middleware';
  * 
 */
 export function emptyCheck(field, res, fieldName) {
-    if (field === null || field === "") {
+    if (field === null || field === "" || field === undefined) {
         res.json({
             success: false,
             errorMessage: fieldName + " is not provided"
