@@ -1,0 +1,26 @@
+10:46:31 ==> SOME ERROR OCCURED
+10:46:31 ==> Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECTr `userLoginId`, `userId`, `userName`, `email`, `isEmailVerified`, `contac' at line 1
+        at PromisePoolConnection.query (/Users/rahulpunase/Desktop/Sockets/backend-sockets/node_modules/mysql2/promise.js:92:22)
+        at /Users/rahulpunase/Desktop/Sockets/backend-sockets/server/router/app.router.js:12:49
+        at process._tickCallback (internal/process/next_tick.js:68:7)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
+11:44:49 ==> SOME ERROR OCCURED
+11:44:49 ==> Error: connect ECONNREFUSED 127.0.0.1:3306
+        at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1097:14)
