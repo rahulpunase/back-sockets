@@ -3,14 +3,10 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { logger } from './middlewares/logger.middleware';
-import appRouter from './routes/app.routes';
-import authRouter from '../server/routes/authentication.routes';
-
+import appRouter from './router/app.router';
 
 const app = express();
 const socket = require('socket.io');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
 
 app.use(cors({
     origin: ["http://localhost:4200"]
@@ -18,8 +14,6 @@ app.use(cors({
 /* Other middlewares and routes */
 
 app.use("/chatapp", appRouter);
-app.use("/authentication", authRouter);
-
 app.use((err, req, res, next) => {
     logger("SOME ERROR OCCURED");
     logger(err.stack.split('\n'));
