@@ -30,3 +30,5 @@ export const QUERY_TO_CHECKEMAIL = "SELECT count(`email`) as userCount FROM "+ S
 export const QUERY_TO_USERNAME = "SELECT count(`userName`) as userCount FROM `new_schema_test`.`user_login` where `userName` = ? and rowstate = 1";
 
 export const QUERY_TO_MATCH = "SELECT `userLoginId`, `userId`, `userName`, `email`, `password` FROM `new_schema_test`.`user_login` where userName = ?";
+
+export const QUER_TO_GET_GROUP_ID = "SELECT `group_id` FROM " + SCHEMA + "`conversation_groups` where group_user = ?";
