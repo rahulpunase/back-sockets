@@ -1,5 +1,5 @@
 import { pool } from '../db/connection.db';
-import { insertUsersToTheGroup, transaction, createConversationWithGroup } from '../controllers/common/controllers.common';
+import { insertUsersToTheGroup, transaction, createConversationWithGroup, sqlFormatter, getUserInfoFromId } from '../controllers/common/controllers.common';
 
 export const getAllUsers = async (req, res, next) => {
    let connection = null;
@@ -18,32 +18,30 @@ export const getAllUsers = async (req, res, next) => {
    }
 }
 
-export const getUserInfoFromId = async (req, res, next) => {
+export const getConversationIdFromChatterId = async (req, res, next) => {
    let connection = null;
    let groupId;
    let conversationId;
+   let chatterInfo;
    try {
-      const query = "SELECT u.`firstName`, u.`lastName`, l.`userId` FROM `new_schema_test`.`user_login` l  inner join `new_schema_test`.`users` u on u.userId = l.userId where l.`rowstate` = 1 and l.`userId`= ?";
-      connection = await pool.getConnection();
+      // -------- //
       const users = [
          req.decoded.data.userId,
          req.query.chatterId
       ];
-      const sql = connection.format(query, [users[1]]);
-      // -------- //
+      connection = await pool.getConnection();
       await transaction.START_TRANSACTION(connection);
-      const [rows] = await connection.query(sql);
-
+      chatterInfo = await getUserInfoFromId(connection, users[1]);
       groupId = await insertUsersToTheGroup(connection, users);
-      conversationId =  await createConversationWithGroup(connection, groupId);
-
+      conversationId = await createConversationWithGroup(connection, groupId);
       await transaction.COMMIT_TRANSACTION(connection);
       // -------- //
-      if (rows.length > 0) {
+      connection.release();
+      if (chatterInfo) {
          res.json({
             success: true,
-            result: rows[0],
             groupId: groupId,
+            chatterInfo: chatterInfo,
             conversationId: conversationId
          })
       } else {
@@ -58,3 +56,23 @@ export const getUserInfoFromId = async (req, res, next) => {
       next(e);
    }
 }
+
+export const getConversationDetails = async (req, res, next) => {
+   try {
+      const conversationId = req.query.conversationId;
+      let chatterInfo;
+      let connection = null;
+      connection = await pool.getConnection();
+      const query = "select `userId` from `user_group` where groupId = (select groupId from `conversation` where cnID = ?) and `userId` != ?";
+      const [rows] = await sqlFormatter(connection, query, [conversationId, req.decoded.data.userId], true);
+      chatterInfo = await getUserInfoFromId(connection, rows[0].userId);
+      connection.release();
+      res.json({
+         chatterInfo: chatterInfo
+      })
+   } catch(e) {
+      connection.release();
+      next(e);
+   }
+}
+
