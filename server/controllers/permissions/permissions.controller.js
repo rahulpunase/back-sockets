@@ -18,8 +18,8 @@ export const isUserActive = async (connection, username, res) => {
 }
 export const isEmailVerified = async (connection, username, res) => {
     try {
-        const QUERY_TO_VERIFY_EMAILUSER = "SELECT `isEmailVerified` as isEmailVerified from user_login where `username` = ?"
-        const [rows, fields] = await connection.execute(QUERY_TO_VERIFY_EMAILUSER, [username]);
+        const QUERY_TO_VERIFY_EMAIL_USER = "SELECT `isEmailVerified` as isEmailVerified from user_login where `username` = ?"
+        const [rows, fields] = await connection.execute(QUERY_TO_VERIFY_EMAIL_USER, [username]);
         if(rows[0].isEmailVerified == 1) {
             return true;
         } else {

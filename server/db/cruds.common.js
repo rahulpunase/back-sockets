@@ -14,7 +14,7 @@ export const CREATE = (pool, query, values) => {
     });
 }
 
-export const READ = (pool, query, filter = [], isfieldsRequired = false) => {
+export const READ = (pool, query, filter = [], isFieldRequired = false) => {
     return pool.query(query, filter)
         .then(data => data)
         .catch(err => new Error(err));

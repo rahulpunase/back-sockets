@@ -4,7 +4,7 @@ import { logger } from '../../middlewares/logger.middleware';
  * Checks if the given @field is empty
  * @field
  * @res
- * @fieldname
+ * @fieldName
  * 
 */
 export function emptyCheck(field, res, fieldName) {
