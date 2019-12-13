@@ -19,7 +19,7 @@ export function verifyToken(req, res, next) {
                     "URL String =>" + req.originalUrl
                 ]);
                 res.status(401).json({
-                    message: "In correct token"
+                    message: "Incorrect token"
                 });
             } else {
                 req.decoded = decoded;

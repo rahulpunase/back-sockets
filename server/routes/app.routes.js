@@ -1,23 +1,18 @@
 import express from 'express';
 const router = express.Router();
 
-import { pool } from '../db/connection.db';
+import { verifyToken } from '../middlewares/auth.middleware';
+import { logger } from '../middlewares/logger.middleware';
+import { getAllUsers, 
+    getConversationIdFromChatterId,
+    getConversationDetails
+ } from '../controllers/chatapp.controller';
 
-router.get('/getusers', async function (req, res, next) {
-    let connection = null;
-     try {
-        const query = "SELECT u.`firstName`, u.`lastName`, l.`userLoginId`, l.`userId`, l.`userName`, l.`email` FROM `new_schema_test`.`user_login` l  inner join `new_schema_test`.`users` u on u.userId = l.userId where l.`rowstate` = 1";
-        connection = await pool.getConnection();
-        const sql = connection.format(query);
-        const [rows, fields] = await connection.query(sql)
-        connection.release();
-        res.json(rows);
-     } catch (e) {
-        connection.release();
-        next(e);
-         //res.json(e);
-     }
-});
+router.get('/getusers', [verifyToken],  getAllUsers);
+
+router.get('/getconversation', [verifyToken], getConversationIdFromChatterId);
+
+router.get('/getconversationdetails', [verifyToken], getConversationDetails);
 
 const appRouter = router;
 export default appRouter;
